@@ -6,7 +6,7 @@ import seaborn as sns
 from PIL import Image
 import plotly.express as px
 
-
+st.set_option('deprecation.showPyplotGlobalUse', False)
 def main():
 	create_layout()
 
@@ -200,7 +200,7 @@ def load_visualization():
 	st.subheader('Last Touch Attribution')
 
 	data_lta = {'Campaign_ID':[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
-	'Return_of_Investment' : [0.08040201, 0.08333333, 0.09589041, 0.21276596, 0.15714286, 0.17948718,
+	'Contribution'	 : [0.08040201, 0.08333333, 0.09589041, 0.21276596, 0.15714286, 0.17948718,
  	 0.1509434,  0.02857143, 0.29824561, 0.11428571, 0.14285714, 0.20610687,
 	 0.10925197, 0.24183007, 0.19705882, 0.05084746, 0.11111111, 0.05660377,
 	 0.29411765, 0.05128205, 0.1, 0.07777778, 0.23076923, 0.26190476,
@@ -211,7 +211,7 @@ def load_visualization():
 	 0.22346369, 0.05084746]}
 	LTA = pd.DataFrame(data_lta)
 
-	ltaax = sns.barplot(x='Campaign_ID', y ="Return_of_Investment", data = LTA, color=(0.2, 0.4, 0.6, 0.6))
+	ltaax = sns.barplot(x='Campaign_ID', y ="Contribution", data = LTA, color=(0.2, 0.4, 0.6, 0.6))
 	ltaax.set_xticklabels(ltaax.get_xticklabels(), rotation=90, ha="right", fontsize = 7)
 	st.pyplot()
 
@@ -229,7 +229,7 @@ def load_visualization():
 	st.subheader('First Touch Attribution')
 
 	data_fta = {'Campaign_ID': [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
-	'Return_of_Investment': [0.08040201, 0.08333333, 0.09589041, 0.21276596, 0.15714286, 0.17948718,
+	'Contribution': [0.08040201, 0.08333333, 0.09589041, 0.21276596, 0.15714286, 0.17948718,
 	 0.1509434, 0.02857143, 0.29824561, 0.11428571, 0.14285714, 0.20610687,
 	 0.10925197, 0.24183007, 0.19705882, 0.05084746, 0.11111111, 0.05660377,
 	 0.29411765, 0.05128205, 0.1,        0.07777778, 0.23076923, 0.26190476, 
@@ -240,15 +240,15 @@ def load_visualization():
 	 0.22346369, 0.05084746]}
 	FTA = pd.DataFrame(data_fta)
 
-	fta_bar = sns.barplot(x='Campaign_ID', y ="Return_of_Investment", data = FTA, color=(0.2, 0.4, 0.6, 0.6))
-	fta_bar.set_xticklabels(fta_bar.get_xticklabels(), rotation=90, ha="right", fontsize = 7)
+	fta_bar = sns.barplot(x='Campaign_ID', y ='Contribution', data = FTA, color=(0.2, 0.4, 0.6, 0.6))
+	fta_bar.set_xticklabels(fta_bar.get_xticklabels() , rotation=90, ha="right", fontsize = 7)
 	st.pyplot()
 
 	st.markdown('For this model, we found the minimum value of the normalized timestamp and gave it 100% of the weightage as this model emphasizes on discovery')
 
 	st.subheader('Linear Attribution')
 	data_lin = {'Campaign_ID': [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
-	'Return_of_Investment': [0.0351563,  0.05833333, 0.06262231, 0.11311968, 0.06652386, 0.13934676,
+	'Contribution': [0.0351563,  0.05833333, 0.06262231, 0.11311968, 0.06652386, 0.13934676,
 	 0.06666242, 0.01904762, 0.18504595, 0.05164835, 0.06690817, 0.0939511,
 	 0.05714611, 0.1273509,  0.09719338, 0.0239025,  0.11111111, 0.02575673,
 	 0.2262605,  0.02157831, 0.03319009, 0.03982804, 0.15171186, 0.17886432,
@@ -258,8 +258,8 @@ def load_visualization():
 	 0.2429135,  0.21875817, 0.10532213, 0.05023474, 0.07207546, 0.05594448,
 	 0.13140401, 0.03344431]}
 	LIN = pd.DataFrame(data_lin)
-	lin_bar = sns.barplot(x='Campaign_ID', y ="Return_of_Investment", data = LIN, color=(0.2, 0.4, 0.6, 0.6))
-	lin_bar.set_xticklabels(fta_bar.get_xticklabels(), rotation=90, ha="right", fontsize = 7)
+	lin_bar = sns.barplot(x='Campaign_ID', y ='Contribution', data = LIN, color=(0.2, 0.4, 0.6, 0.6))
+	lin_bar.set_xticklabels(lin_bar.get_xticklabels(), rotation=90, ha="right", fontsize = 7)
 	st.pyplot()
 
 	st.markdown('Linear attribution gives a more balanced look but it fails to highlight the most effective strategies that may have truly helped in conversion. For this particular model, the timestamp was normalized and equal weightage was given to all the touchpoints in the journey')
@@ -267,7 +267,7 @@ def load_visualization():
 	st.subheader('Time Decay Attribution')
 
 	data_tda = {'Campaign_ID':[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
-	'Return_of_Investment': [0.19062476, 0.13359402, 0.21500698, 0.45219494, 0.42189964, 0.32459297,
+	'Contribution': [0.19062476, 0.13359402, 0.21500698, 0.45219494, 0.42189964, 0.32459297,
 	 0.31157722, 0.04170178, 0.48527758, 0.22504065, 0.30118764, 0.44064813,
 	 0.20572066, 0.47386639, 0.42961423, 0.09669172, 0.18972119, 0.11639765,
 	 0.60135266, 0.13830427, 0.21921009, 0.10968338, 0.53263666, 0.47534501,
@@ -277,7 +277,7 @@ def load_visualization():
 	 0.66585399, 0.49791271, 0.32941828, 0.18663626, 0.50196205, 0.18409656,
 	 0.46655166, 0.10402354]}
 	TDA = pd.DataFrame(data_tda)
-	tda_bar = sns.barplot(x='Campaign_ID', y ="Return_of_Investment", data = TDA, color=(0.2, 0.4, 0.6, 0.6))
+	tda_bar = sns.barplot(x='Campaign_ID', y ='Contribution', data = TDA, color=(0.2, 0.4, 0.6, 0.6))
 	tda_bar.set_xticklabels(tda_bar.get_xticklabels(), rotation=90, ha="right", fontsize = 7)
 	st.pyplot()
 
@@ -285,7 +285,7 @@ def load_visualization():
 
 	st.subheader('U Shaped Attribution')
 	data_usa = {'Campaign_ID':[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
-	'Return_of_Investment':[0.03477706, 0.06111111, 0.0660274,  0.10896522, 0.07211535, 0.1358547,
+	'Contribution':[0.03477706, 0.06111111, 0.0660274,  0.10896522, 0.07211535, 0.1358547,
 	 0.05326146, 0.01714286, 0.2080117,  0.05584416, 0.07115941, 0.09149487,
 	 0.05657818, 0.13551971, 0.09086099, 0.02014359, 0.11111111, 0.02716926,
 	 0.23421369, 0.01882155, 0.0413851,  0.03648148, 0.16981285, 0.17023384,
@@ -295,7 +295,7 @@ def load_visualization():
 	 0.2274963,  0.21784314, 0.10362745, 0.04510396, 0.06486061, 0.05339167,
 	 0.13618147, 0.03067797]}
 	USA = pd.DataFrame(data_usa)
-	usa_bar = sns.barplot(x='Campaign_ID', y ="Return_of_Investment", data = USA, color=(0.2, 0.4, 0.6, 0.6))
+	usa_bar = sns.barplot(x='Campaign_ID', y ='Contribution', data = USA, color=(0.2, 0.4, 0.6, 0.6))
 	usa_bar.set_xticklabels(usa_bar.get_xticklabels(), rotation=90, ha="right", fontsize = 7)
 	st.pyplot()
 
@@ -303,7 +303,7 @@ def load_visualization():
 
 	st.subheader('Logistic Regression')
 	data_lr = {'Campaign_ID':[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
-	'Return_of_Investment':[0.00216253, 0.00232608, 0.00240678, 0.0023853, 0.00273383, 0.00259631,
+	'Contribution':[0.00216253, 0.00232608, 0.00240678, 0.0023853, 0.00273383, 0.00259631,
 	 0.00244698, 0.00224772, 0.00284641, 0.00278856, 0.00252788, 0.00252696,
 	 0.00176995, 0.00290918, 0.0025484,  0.00181854, 0.00271356, 0.00201667,
 	 0.00307334, 0.00232065, 0.00227443, 0.00196627, 0.00265682, 0.00255898,
@@ -313,7 +313,7 @@ def load_visualization():
 	 0.00328661, 0.00295352, 0.00260348, 0.00233819, 0.00333214, 0.00209907,
 	 0.00277404, 0.00194594]}
 	LR = pd.DataFrame(data_lr)
-	lr_bar = sns.barplot(x='Campaign_ID', y ="Return_of_Investment", data = LR, color=(0.2, 0.4, 0.6, 0.6))
+	lr_bar = sns.barplot(x='Campaign_ID', y ='Contribution', data = LR, color=(0.2, 0.4, 0.6, 0.6))
 	lr_bar.set_xticklabels(lr_bar.get_xticklabels(), rotation=90, ha="right", fontsize = 7)
 	st.pyplot()
 
@@ -385,6 +385,8 @@ def load_visualization():
 	for i, j in zip(a, variables):
 	  plt.plot(pitch_list, i,marker='o',label=j)
 	plt.legend()
+	plt.xlabel('Pitch')
+	plt.ylabel('Return on Investment')
 	plt.show()
 	st.pyplot()
 
