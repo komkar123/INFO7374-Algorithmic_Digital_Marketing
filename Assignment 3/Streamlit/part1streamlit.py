@@ -1,4 +1,4 @@
-import streamlit as st
+k import streamlit as st
 import os 
 import pandas as pd
 import requests
@@ -6,6 +6,7 @@ from elasticsearch import Elasticsearch
 from PIL import Image
 import requests
 from io import BytesIO
+
 #os.chdir('N:/Digital Marketing Fall 2020/Streamlit/')
 
 st.title('Elasticsearch using Neural Style Transfer - Tensor Flow')
