@@ -21,7 +21,7 @@ from matplotlib import pyplot as plt
 
 
 
-from google.colab import drive
+#from google.colab import drive
 
 # This will prompt for authorization.
 #drive.mount('/content/drive')
