@@ -1,0 +1,6 @@
+tensorflow
+streamlit
+matplotlib
+faiss-cpu
+numpy
+pandas
