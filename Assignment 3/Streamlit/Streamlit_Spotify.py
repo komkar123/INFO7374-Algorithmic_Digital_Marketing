@@ -31,43 +31,37 @@ from Spotify_algo import features
 from Spotify_algo import get_vector
 from Spotify_algo import search_similar_image
 from Spotify_algo import match_id
+from Spotify_algo import cluster
+from Spotify_algo import get_all_features
+
 st.set_option('deprecation.showfileUploaderEncoding', False)
 d = []
 images = {}
 images = get_all_images()
-features()
-img = {}
+nnn = []
+#Change path for get all images function
+#Change path for cluster function
 uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 slid=st.slider('Select number of images (k) to be retrieved :', 0, 10, 1)
 if st.button('Submit'):
 	if uploaded_file is not None:
 		#st.write("Classifying...")
 		vector = get_vector(uploaded_file)
-		img = search_similar_image(vector, slid)
-		#st.write(img)
+		nnn = cluster(vector)
+		# img = search_similar_image(vector, slid)
+		# #st.write(img)
 		im = Image.open(uploaded_file)
 		st.image(im, caption = "Uploaded image")
-		st.write("Similar images")
+		#st.write(nnn)
+		slid = slid + 1
+		st.write("Similar Images")
 		for i in range(0, slid):
-			image_name = img[i]
-			file = image_name["img"]
-			#filename = ".".join(file.split(".").[-1])
-			filename = '.'.join(file.split('.')[:-1])
-			st.image(images[filename])
-			#img = Image.open(BytesIO(images[filename]))
+			for k in range(0, len(images)):
+				if(nnn[i]['similar_pi'] == images[k]['product_id']):
+					st.image(images[k]['image'])
+					break
 
-		#st.write(img[0] for img in img)
-		#filename = ".".join(img.keys())[0].split(".").[:-1]
-		# for i in range(0, slid):
-		# 	img=Image.open(BytesIO(images[img[0]]))
-		# 	d.append(img)
-		# 	st.image(d[i])
-
-			
-
-		
-
-
-    	#vector = get_image_feature_vectors(uploaded_file)
+		#st.write(img)
+					
     	
 
