@@ -1,9 +1,12 @@
 import streamlit as st
 import pandas as pd
+import altair as alt
 # from PIL import Image
 
 st.title("Snack Recommendation System using SAR algorithm")
+top_k = pd.read_csv("recom_items.csv")
 data=pd.read_csv('snackreviews.csv',header=0)
+
 
 st.markdown(
     """
@@ -63,8 +66,6 @@ if st.button('Recommend'):
 	if user_input == "":
 		st.text('Please enter valid user_id')
 	else:
-		top_k = pd.read_csv("recom_items.csv")
-		data=pd.read_csv('snackreviews.csv',header=0)
 		top_k_with_titles = (top_k.join(data[['SnackId', 'Snack']].drop_duplicates().set_index('SnackId'), 
 		                                on='SnackId', 
 		                                how='inner').sort_values(by=['Userid', 'Prediction'], ascending=False))
@@ -75,7 +76,16 @@ if st.button('Recommend'):
 			st.subheader(result.iloc[j]['Snack'])	
 			link = images.get(snack)
 			st.image(link, width = 200)
+		df=data[data['Userid']==user_input]
+		df=df[['Snack','Rating']]
+		st.subheader('Ratings given by user')
+		chart = alt.Chart(df).mark_bar().encode(
+    	alt.X("Snack"),
+    	y='Rating',
+    	).interactive()
+		st.altair_chart(chart,use_container_width=True)
 		st.subheader('Performance of SAR Algorithm')
-		st.image('prec.jpg',width=600)
-		st.image('recall.png',width=600	)
+		st.image('https://i.ibb.co/Rj5jD7F/prec.jpg',width=600)
+		st.image('https://i.ibb.co/hf1rk2C/recall.jpg',width=600)
+
 
