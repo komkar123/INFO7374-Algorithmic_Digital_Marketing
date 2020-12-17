@@ -70,6 +70,30 @@ def load_CustomerSegmentation():
 	st.markdown("This cluster of customers have good Frequency mean, good Monetary Value mean and poor Recency mean. We need to do something to not lose them as they were interested in the business until a few months ago")
 
 
+def load_predictiveAnalytics():
+	age = st.selectbox(
+		'Which age group do you belong in?',
+		('19-24', '25-34', '35-44', '45-54','55-64','65+'))
+	marital_stat = st.selectbox(
+		'Please select your marital status',
+		('A','B','U'))
+	income = st.selectbox(
+		'Select your income range',
+		('100-104k','125-149k','150-174k','175-199k','200-249k','250+','15-24k','25-34k','35-49k','50-74k','75-99k','Under 15k'))
+	hh_desc = st.selectbox(
+		'Select your homeowner type',
+		('Homeowner','Portable Owner','Portable Renter','Renter','Unknown'))
+	hh_comp_desc = st.selectbox(
+		'Select your household description',
+		('1 Adult kids','2 Adult kids','2 Adult No kids','Single Female','Single Male','Unknown'))
+	kids_cat = st.selectbox(
+		'Select the kid category',
+		('1','2','3+','Unknown'))
+	hh_size = st.selectbox(
+		'Select the household size',
+		('1','2','3','4','5+'))
+	st.button('Predict')
+
 def load_eda():
 	report = st.sidebar.radio('Select the report you would like to view',('Household Demographics','Coupon Redemption and Sales'))
 	if(report == 'Household Demographics'):
@@ -80,6 +104,10 @@ def load_eda():
 		st.markdown("""
     <iframe width="850" height="800" src="https://datastudio.google.com/embed/u/0/reporting/7acd482b-193d-4776-aa20-84f61d71a1e7/page/jQVtB" frameborder="0" style="border:0" allowfullscreen></iframe>
     """, unsafe_allow_html=True)
+
+def load_reference():
+	st.markdown('* https://towardsdatascience.com/customer-segmentation-in-python-9c15acf6f945')
+	st.markdown('* https://clevertap.com/blog/rfm-analysis/')
 
 def create_layout():
 	app_mode = st.sidebar.selectbox("Please select a page", ["Homepage : Data Description",
