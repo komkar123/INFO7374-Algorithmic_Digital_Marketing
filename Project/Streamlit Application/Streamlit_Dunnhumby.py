@@ -4,7 +4,44 @@ from PIL import Image
 
 def load_homepage():
 	st.title('Dunnhumby - The Complete Journey')
-	st.subheader('Data Overview')
+	st.subheader('Introduction')
+	st.markdown('An algorithmic marketing approach to understand the response and effects of \
+transactions during different campaigns. Dunnhumby work with a range of sectors,\
+including grocery retail, retail pharmacy, and retailer financial services. The expert \
+teams work alongside their global clients in these sectors, helping them to make\
+the most of their customer data and to put the Customer at the heart of everything\
+ they do.')
+	st.image('Images/Capture.jpg',width = 800, height = 1000)
+	st.subheader('Motivation')
+	st.markdown('The overall data which has been collected contains demographics of 2500 households \
+	who have been customers at various retail stores managed by Dunnhumby. There were different campaigns \
+	ran by Dunnhumby by introducing coupons for discounts on various households. Some of the reacted \
+	and showed interested, made purchasing and others did not redeem the coupons. At this current situation we \
+	have to study the kind of households we are dealing with us and analyze their buying behaviours. \
+	A marketing and machine learning based solution should be designed to approach this situation \
+	for the growth of our retail stores and help them to maximize profit.  ')
+	st.image('Images/algo.jpg',width = 800, height = 1000)
+	st.subheader('Goals')
+	st.markdown('**Household Segmentation using RFM modeling**')
+	st.markdown('Segregating 2500 households based on their transactional history over the two years, to understand the plan to maximize profit.')
+	st.markdown('**Predictive Analytics for Coupon Redemption**')
+	st.markdown('Devising a ML based model to predict whether a household is sensitive to coupon or not. This will help retailers to customize coupon codes to maximize the overall outcome.')
+	st.image('Images/goal.png',width = 800, height = 1000)
+# def dataset():
+# 	st.subheader('Overview of Dataset')
+# 	st.markdown('This dataset contains household level transactions over two years from a group of \
+# 2,500 households who are frequent shoppers at a retailer. It contains all each \
+# household’s purchases, not just those from a limited number of categories. For \
+# certain households, demographic information as well as direct marketing contact \
+# history are included.')
+# 	st.image('Images/data.jpg',width = 800, height = 1000)
+# 	st.markdown('campaign_desc.csv : Description of Campaigns') 
+# 	st.markdown('campaign_table.csv : Campaign and households participating')
+# 	st.markdown('coupon.csv : Coupon information')
+# 	st.markdown('coupon_redempt.csv : Coupon Redemptions')
+# 	st.markdown('hh_demographic.csv : Household demographics')
+# 	st.markdown('product.csv : Product Information')
+# 	st.markdown('transaction_data.csv : Overall Transactions data')
 
 def load_CustomerSegmentation():
 	st.header("Customer Segmentation")
@@ -71,36 +108,41 @@ def load_CustomerSegmentation():
 
 
 def load_predictiveAnalytics():
-	age = st.selectbox(
-		'Which age group do you belong in?',
-		('19-24', '25-34', '35-44', '45-54','55-64','65+'))
-	marital_stat = st.selectbox(
-		'Please select your marital status',
-		('A','B','U'))
-	income = st.selectbox(
-		'Select your income range',
-		('100-104k','125-149k','150-174k','175-199k','200-249k','250+','15-24k','25-34k','35-49k','50-74k','75-99k','Under 15k'))
-	hh_desc = st.selectbox(
-		'Select your homeowner type',
-		('Homeowner','Portable Owner','Portable Renter','Renter','Unknown'))
-	hh_comp_desc = st.selectbox(
-		'Select your household description',
-		('1 Adult kids','2 Adult kids','2 Adult No kids','Single Female','Single Male','Unknown'))
-	kids_cat = st.selectbox(
-		'Select the kid category',
-		('1','2','3+','Unknown'))
-	hh_size = st.selectbox(
-		'Select the household size',
-		('1','2','3','4','5+'))
-	st.button('Predict')
+	report = st.sidebar.radio('Select the element you would like to view',('Machine Learning Results','Predicting Households to Coupon Redemption'))
+	if report=='Predicting Households to Coupon Redemption':
+		st.subheader('Predict category of households for Coupon Redemption')
+		age = st.selectbox(
+			'Age Group',
+			('19-24', '25-34', '35-44', '45-54','55-64','65+'))
+		marital_stat = st.selectbox(
+			'Marital Status',
+			('A','B','U'))
+		income = st.selectbox(
+			'Income Range',
+			('100-104k','125-149k','150-174k','175-199k','200-249k','250+','15-24k','25-34k','35-49k','50-74k','75-99k','Under 15k'))
+		hh_desc = st.selectbox(
+			'Homeowner type',
+			('Homeowner','Portable Owner','Portable Renter','Renter','Unknown'))
+		hh_comp_desc = st.selectbox(
+			'Household Description',
+			('1 Adult kids','2 Adult kids','2 Adult No kids','Single Female','Single Male','Unknown'))
+		kids_cat = st.selectbox(
+			'Kid Category',
+			('1','2','3+','Unknown'))
+		hh_size = st.selectbox(
+			'Household Size',
+			('1','2','3','4','5+'))
+		st.button('Predict')
 
 def load_eda():
 	report = st.sidebar.radio('Select the report you would like to view',('Household Demographics','Coupon Redemption and Sales'))
 	if(report == 'Household Demographics'):
+		st.subheader('Household Demographics Report')
 		st.markdown("""
     <iframe width="900" height="650" src="https://datastudio.google.com/embed/reporting/56e35266-5246-47bb-8e48-c83c8cb3695e/page/z3ItB" frameborder="0" style="border:0" allowfullscreen></iframe>
     """, unsafe_allow_html=True)
 	if(report == 'Coupon Redemption and Sales'):
+		st.subheader('Coupon Redemption and Sales')
 		st.markdown("""
     <iframe width="850" height="800" src="https://datastudio.google.com/embed/u/0/reporting/7acd482b-193d-4776-aa20-84f61d71a1e7/page/jQVtB" frameborder="0" style="border:0" allowfullscreen></iframe>
     """, unsafe_allow_html=True)
@@ -110,13 +152,13 @@ def load_reference():
 	st.markdown('* https://clevertap.com/blog/rfm-analysis/')
 
 def create_layout():
-	app_mode = st.sidebar.selectbox("Please select a page", ["Homepage : Data Description",
+	app_mode = st.sidebar.selectbox("Please select a page", ["Homepage",
 															 "Exploratory Data Analysis",
                                                              "Customer Segmentation",
                                                              "Predictive Analytics",
                                                              "Conclusions",
                                                              "References"])
-	if app_mode == 'Homepage : Data Description':
+	if app_mode == 'Homepage':
 		load_homepage()
 	elif app_mode == 'Exploratory Data Analysis':
 		load_eda()
