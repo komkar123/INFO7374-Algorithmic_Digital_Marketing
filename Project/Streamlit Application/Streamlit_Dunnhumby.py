@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
+import pickle
+from model import predict
 
 def load_homepage():
 	st.title('Dunnhumby - The Complete Journey')
@@ -108,31 +110,50 @@ def load_CustomerSegmentation():
 
 
 def load_predictiveAnalytics():
+	i=0
 	report = st.sidebar.radio('Select the element you would like to view',('Machine Learning Results','Predicting Households to Coupon Redemption'))
-	if report=='Predicting Households to Coupon Redemption':
-		st.subheader('Predict category of households for Coupon Redemption')
-		age = st.selectbox(
-			'Age Group',
-			('19-24', '25-34', '35-44', '45-54','55-64','65+'))
-		marital_stat = st.selectbox(
-			'Marital Status',
-			('A','B','U'))
-		income = st.selectbox(
-			'Income Range',
-			('100-104k','125-149k','150-174k','175-199k','200-249k','250+','15-24k','25-34k','35-49k','50-74k','75-99k','Under 15k'))
-		hh_desc = st.selectbox(
-			'Homeowner type',
-			('Homeowner','Portable Owner','Portable Renter','Renter','Unknown'))
-		hh_comp_desc = st.selectbox(
-			'Household Description',
-			('1 Adult kids','2 Adult kids','2 Adult No kids','Single Female','Single Male','Unknown'))
-		kids_cat = st.selectbox(
-			'Kid Category',
-			('1','2','3+','Unknown'))
-		hh_size = st.selectbox(
-			'Household Size',
-			('1','2','3','4','5+'))
-		st.button('Predict')
+	if report == 'Machine Learning Results':
+		st.subheader('Coupon Redemption Models : Results')
+		st.image('Images/prec.png')
+
+	try:
+		while report=='Predicting Households to Coupon Redemption':
+			i=i+1
+			if i==1:
+				st.subheader('Predict category of households for Coupon Redemption')
+			age = st.selectbox(
+				'Age Group',
+				('19-24', '25-34', '35-44', '45-54','55-64','65+'))
+			mar = st.selectbox(
+				'Marital Status',
+				('A','B','U'))
+			inc= st.selectbox(
+				'Income Range',
+				('100-124k','125-149k','150-174k','175-199k','200-249k','250+','15-24k','25-34k','35-49k','50-74k','75-99k','Under 15k'),key=i)
+			hh_desc = st.selectbox(
+				'Homeowner type',
+				('Homeowner','Portable Owner','Portable Renter','Renter','Unknown'))
+			hh_cd = st.selectbox(
+				'Household Description',
+				('1 Adult kids','2 Adult kids','2 Adult No kids','Single Female','Single Male','Unknown'))
+			kids_cat = st.selectbox(
+				'Kid Category',
+				('1','2','3+','Unknown'))
+			sales = st.text_input('Enter sales values generated on average')
+			
+			vis = st.text_input('Average number of visits')
+			
+			if st.button('Predict'):
+				sales=float(sales)
+				vis=int(vis)
+				r=predict(age,mar,inc,hh_desc,hh_cd,kids_cat,sales,vis)
+				st.text(r)
+	except:
+		pass			
+
+
+
+
 
 def load_eda():
 	report = st.sidebar.radio('Select the report you would like to view',('Household Demographics','Coupon Redemption and Sales'))
@@ -172,6 +193,7 @@ def create_layout():
 		load_reference()
 
 def main():
+
 	create_layout()
 
 main()
