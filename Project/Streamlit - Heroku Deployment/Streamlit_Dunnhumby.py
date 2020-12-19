@@ -127,14 +127,15 @@ def load_predictiveAnalytics():
 	if report == 'Machine Learning Results':
 		st.subheader('Coupon Redemption Models : Results')
 		st.markdown('**Precision Score of Models**')
-		st.image('Images/prec.png')
+		st.image('Images/prec.jpg')
 		st.markdown('**Accuracy Score of Models**')
-		st.image('Images/acc.png')
-		st.markdown('**As we can see the logistic regression model performs better at classification than other ensemble models**')
+		st.image('Images/acc.jpg')
+		st.markdown('**As we can see the logistic regression model performs better at precision than other ensemble models \
+			but we want a model which is precise and accurate so we decided to move ahead with decision tree**')
 		st.subheader('HyperParameter Tuning of Logistic Regression')
-		st.image('Images/reg.png')
+		st.image('Images/reg.jpg')
 		st.markdown('L2 regularization with C=0.01 performs better')
-		st.image('Images/regacc.png')
+		st.image('Images/regacc.jpg')
 
 	try:
 		while report=='Predicting Households to Coupon Redemption':
@@ -152,12 +153,12 @@ def load_predictiveAnalytics():
 				('100-124k','125-149k','150-174k','175-199k','200-249k','250+','15-24k','25-34k','35-49k','50-74k','75-99k','Under 15k'),key=i)
 			hh_desc = st.selectbox(
 				'Homeowner type',
-				('Homeowner','Portable Owner','Portable Renter','Renter','Unknown'))
+				('Homeowner','Probable Owner','Probable Renter','Renter','Unknown'))
 			hh_cd = st.selectbox(
 				'Household Description',
 				('1 Adult kids','2 Adult kids','2 Adult No kids','Single Female','Single Male','Unknown'))
 			kids_cat = st.selectbox(
-				'Kid Category',
+				'Number of kids',
 				('1','2','3+','Unknown'))
 			sales = st.text_input('Enter sales values generated on average')
 			
@@ -165,7 +166,6 @@ def load_predictiveAnalytics():
 			
 			if st.button('Predict'):
 				try:
-
 					sales=float(sales)
 					vis=int(vis)
 					r=predict(age,mar,inc,hh_desc,hh_cd,kids_cat,sales,vis)
@@ -202,15 +202,25 @@ def load_reference():
 	st.markdown('* https://towardsdatascience.com/customer-segmentation-in-python-9c15acf6f945')
 	st.markdown('* https://clevertap.com/blog/rfm-analysis/')
 
+def load_exp():
+	st.subheader('Exploratory Data Analysis using Python')
+	for i in range(11):
+		st.image('Images/'+str(i+1)+'.jpg')
+	
+
+
+
+
 def create_layout():
 	app_mode = st.sidebar.selectbox("Please select a page", ["Homepage",
 															 "Exploratory Data Analysis",
+															 "Dashboards",
                                                              "Customer Segmentation",
                                                              "Predictive Analytics",
                                                              "Conclusions"])
 	if app_mode == 'Homepage':
 		load_homepage()
-	elif app_mode == 'Exploratory Data Analysis':
+	elif app_mode == 'Dashboards':
 		load_eda()
 	elif app_mode == 'Customer Segmentation':
 		load_CustomerSegmentation()
@@ -218,6 +228,8 @@ def create_layout():
 		load_predictiveAnalytics()
 	elif app_mode == 'Conclusions':
 		load_conclusions()
+	elif app_mode =='Exploratory Data Analysis':
+		load_exp()
 
 def main():
 

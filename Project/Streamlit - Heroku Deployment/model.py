@@ -4,9 +4,11 @@ import streamlit as st
 import numpy as np 
 
 def predict(age,mar,inc,hh_desc,hh_cd,kids_cat,sales,vis):
-	df_mean=pd.read_csv('means.csv')
-	df_std=pd.read_csv('stds.csv')
-	with open(r"logisticregression.pkl", "rb") as input_file:
+	# df_mean=pd.read_csv('means.csv')
+	# df_std=pd.read_csv('stds.csv')
+	# max=[5,11,3,27859.68,1223] #Maximum Age, Income, Kids,Sales,Visits from Training dataset
+	# min=[0,0,0,646.4,32]
+	with open(r"decisiontree.pkl", "rb") as input_file:
 		e = pickle.load(input_file)
 	if age=='19-24':
 		a=1
@@ -97,14 +99,22 @@ def predict(age,mar,inc,hh_desc,hh_cd,kids_cat,sales,vis):
 		unknown_hh=1 
 
 	
-	age=(a-df_mean['0'][0])/df_std['0'][0]
-	#st.text(age)
-	inc=(ic-df_mean['0'][1])/df_std['0'][1]	
-	kid=(kid-df_mean['0'][2])/df_std['0'][2]
-	sales=(sales-df_mean['0'][3])/df_std['0'][3]
-	vis=(vis-df_mean['0'][4])/df_std['0'][4]
+	# age=(a-df_mean['0'][0])/df_std['0'][0]
+	# #st.text(age)
+	# inc=(ic-df_mean['0'][1])/df_std['0'][1]	
+	# kid=(kid-df_mean['0'][2])/df_std['0'][2]
+	# sales=(sales-df_mean['0'][3])/df_std['0'][3]
+	# vis=(vis-df_mean['0'][4])/df_std['0'][4]
 
-	inp=[age,inc,kid,sales,vis,marital_status_code_A,marital_status_code_B,marital_status_code_U,homeown,probown,probren,homren,homown,oak,tak,ta,of,om,unknown_hh]
+	# age=(a-min[0])/(max[0]-min[0])
+	# inc=(ic-min[1])/(max[1]-min[1])
+	# kid=(kid-min[2])/(max[2]-min[2])
+	# sales=(sales-min[3])/(max[3]-min[3])
+	# vis=(vis-min[4])/(max[4]-min[4])
+
+
+	#inp=[age,inc,kid,sales,vis,marital_status_code_A,marital_status_code_B,marital_status_code_U,homeown,probown,probren,homren,homown,oak,tak,ta,of,om,unknown_hh]
+	inp=[a,ic,kid,sales,vis,marital_status_code_A,marital_status_code_B,marital_status_code_U,homeown,probown,probren,homren,homown,oak,tak,ta,of,om,unknown_hh]
 	inp=np.asarray(inp)
 	p=e.predict(inp.reshape(1,-1))
 
